@@ -29,3 +29,31 @@ input[type=submit] {
     font-family: 'Courier New', Courier, monospace;
     font-size: 1rem;
 }
+
+#score_container {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    height: 2rem;
+}
+
+#score {
+    font-size: inherit;
+    display: inline;
+}
+
+#score_container a {
+    font-family: monospace;
+    display: inline;
+    font-size: inherit;
+    text-decoration: none;
+}
+
+#score_container button {
+    /* height: 100%; */
+    display: inline;
+    position: relative;
+    top: -15%;
+    margin-left: 15px;
+    font-size: 1.5rem;
+}

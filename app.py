@@ -1,7 +1,6 @@
-import os
 import secrets
 
-from flask import Flask, g, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session, url_for
 
 from models import Question, Quiz, db
 
@@ -30,8 +29,8 @@ def quiz(quiz_id):
     return render_template("quiz.html", quiz=quiz)
 
 
-@app.route("/check")
-def check_answers():
+@app.route("/submit")
+def submit():
     quiz_id = request.args.get("quiz_id")
     quiz = Quiz.query.get_or_404(quiz_id)
     answers = request.args.to_dict()
@@ -42,16 +41,23 @@ def check_answers():
         if quiz.questions[int(k)].correct_answer != int(a):
             res += 1
     res = 1 - res / len(quiz.questions)
-    res *= 100  # from a fraction to a percentage.
+    res = int(res * 100)  # from a fraction to a percentage.
     if "best" in session:
         session["best"] = max(session["best"], res)
     else:
         session["best"] = res
-    session["best"] = int(session["best"])
-    return redirect("home")
+    return redirect(url_for("score", score=res))
+
+
+@app.route("/score")
+def score():
+    score = request.args.get("score")
+    if score is None:
+        redirect("home")
+    return render_template("score.html", score=score)
 
 
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-        app.run(debug=True, port="4040")
+    app.run(debug=True, port="4040")
