@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block title %} Homepage {% endblock %}
+
+{% block main_body %}
+<ul>
+    {% for quiz_id in quiz_ids %}
+    <li>
+        <a href="{{  url_for('quiz', quiz_id=quiz_id)  }}">Quiz {{ quiz_id + 1 }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

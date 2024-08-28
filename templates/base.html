@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    {% if session.get("best") is not none %}
+    <h1 id="best">Best: {{ session["best"] }}%</h1>
+    {% endif %}
+    {% block main_body %}{% endblock %}
+    <h3 id="author">Abdul Akhundzada, (C) All Rights Reserved</h3>
+</body>
+
+</html>
